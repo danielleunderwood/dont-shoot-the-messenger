@@ -2,7 +2,7 @@ import createError from 'http-errors';
 import express, { ErrorRequestHandler } from 'express';
 import logger from 'morgan';
 
-import indexRouter from './routes/index';
+import messagesRouter from './routes/messages';
 
 import HttpException from './exceptions/HttpException';
 
@@ -12,7 +12,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
+app.use('/messages', messagesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
