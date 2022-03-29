@@ -1,12 +1,13 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
+import MessagePersistence from '../persistence/MessagePersistence';
 
 const router = express.Router();
 
-const queue = new Array<string>();
-
-router.get('/:message', (req, res) => {
-  queue.push(req.params.message);
-  return res.status(200).send(JSON.stringify(queue));
-});
+router.get('/:message', (async (req, res) => {
+  await MessagePersistence.create(req.params.message);
+  return res.status(200).send(
+    await MessagePersistence.findMany(),
+  );
+}) as RequestHandler);
 
 export default router;
