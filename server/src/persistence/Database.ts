@@ -1,7 +1,9 @@
 import sqlite3 from 'sqlite3';
+import configuration from '../utilities/ConfigurationManager';
 
 const getDatabase = () => {
-  const db = new sqlite3.Database('file:file.db');
+  const { connectionString } = configuration;
+  const db = new sqlite3.Database(connectionString);
 
   return db;
 };

@@ -1,11 +1,13 @@
 import express, { RequestHandler } from 'express';
 import StatusCode from '../utilities/StatusCode';
 import MessagePersistence from '../persistence/MessagePersistence';
+import Message from '../model/Message';
 
 const router = express.Router();
 
-router.post('/:message', (async (req, res) => {
-  await MessagePersistence.enqueue(req.params.message);
+router.post('/', (async (req, res) => {
+  const message = req.body as Message;
+  await MessagePersistence.enqueue(message.Message);
   return res.status(200).send();
 }) as RequestHandler);
 

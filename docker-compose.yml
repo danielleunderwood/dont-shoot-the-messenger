@@ -1,9 +1,29 @@
 version: "3"
 services:
   broker:
-    container_name: node-docker
-    image: node-docker
-    restart: always
+    container_name: broker
+    image: broker
     build: .
     ports:
       - "3000:3000"
+    networks:
+      network:
+        aliases: 
+          - broker
+      
+  producer-1:
+    container_name: producer-1
+    image: producer
+    build: .
+    networks:
+      - network
+      
+  producer-2:
+    container_name: producer-2
+    image: producer
+    build: .
+    networks:
+      - network
+      
+networks:
+  network:
