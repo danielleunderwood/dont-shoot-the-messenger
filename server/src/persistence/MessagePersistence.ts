@@ -1,40 +1,19 @@
 import Database from './Database';
 import Message from '../model/Message';
 
-const create = async (message: string) => {
-  const db = await Database.getDatabase();
-
-  try {
-    await new Promise<void>((resolve, reject) => {
-      db.run(
-        'insert into Message (Message) values(?)',
-        message,
-        (err) => (err ? reject(err) : resolve()),
-      );
-    });
-  } finally {
-    db.close();
-  }
+const enqueue = async (message: string) => {
+  await Database.runAsync('insert into Message (Message) values(?)', message);
 };
 
-const findMany = async () => {
-  const db = await Database.getDatabase();
+const dequeue = async () => {
+  const row = await Database.getAsync<Message>('select * from Message');
 
-  try {
-    const result = await new Promise((resolve, reject) => {
-      db.all('select * from Message', (err, rows: Message[]) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows.map((row) => row.Message));
-        }
-      });
-    });
+  if (row) {
+    await Database.runAsync('delete from Message where Id = (?)', row.Id);
 
-    return result;
-  } finally {
-    db.close();
+    return row.Message;
   }
+  return undefined;
 };
 
-export default { create, findMany };
+export default { enqueue, dequeue };
