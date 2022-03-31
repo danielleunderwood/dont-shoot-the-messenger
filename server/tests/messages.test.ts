@@ -17,11 +17,13 @@ it('stores requests in the queue', async () => {
   const testApp = supertest(app);
 
   await testApp
-    .post('/messages/1')
+    .post('/messages')
+    .send({ Message: '1' })
     .expect(StatusCode.Ok);
 
   await testApp
-    .post('/messages/2')
+    .post('/messages')
+    .send({ Message: '2' })
     .expect(StatusCode.Ok);
 
   await testApp

@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "prestart": "npm run build",
     "start": "node --experimental-specifier-resolution=node dist/src/server.js",
-    "test": "npm run prestart && jest --detectOpenHandles"
+    "test": "npm run prestart && jest"
   },
   "dependencies": {
     "express": "^4.17.3",

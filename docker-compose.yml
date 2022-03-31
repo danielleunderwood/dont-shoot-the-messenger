@@ -25,5 +25,19 @@ services:
     networks:
       - network
       
+  consumer-1:
+    container_name: consumer-1
+    image: consumer
+    build: .
+    networks:
+      - network
+      
+  consumer-2:
+    container_name: consumer-2
+    image: consumer
+    build: .
+    networks:
+      - network
+      
 networks:
   network:
