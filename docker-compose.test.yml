@@ -1,9 +1,0 @@
-version: "3"
-services:
-  broker:
-    container_name: node-docker
-    image: node-docker
-    restart: always
-    build: .
-    ports:
-      - "3000:3000"

@@ -1,7 +1,7 @@
 class Message {
   Message: string;
 
-  Id: number;
+  Id?: number;
 }
 
 export default Message;
