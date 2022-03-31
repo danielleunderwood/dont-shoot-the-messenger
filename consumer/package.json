@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "prestart": "npm run build",
     "local": "cross-env NODE_ENV=local npm run start",
-    "docker": "cross-env NODE_ENV=docker npm run start",
+    "docker": "npm run start",
     "start": "node --experimental-specifier-resolution=node dist/consumer.js"
   },
   "dependencies": {
